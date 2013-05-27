@@ -1,0 +1,29 @@
+{
+  "name": "level1",
+  "version": "0.0.0",
+  "description": "My first dabbles with leveldb. Mainly here so I can link my buggy code in irc to ask for help.",
+  "main": "level1.js",
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thlorenz/level1.git"
+  },
+  "homepage": "https://github.com/thlorenz/level1",
+  "dependencies": {
+    "levelup": "~0.9.0",
+    "leveldown": "~0.5.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": {
+    "name": "Thorsten Lorenz",
+    "email": "thlorenz@gmx.de",
+    "url": "http://thlorenz.com"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}
