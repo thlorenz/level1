@@ -1,7 +1,7 @@
 'use strict';
 
-var levelup = require('levelup')
-var db = levelup(__dirname + '/../data/dbprk01.db')
+var level = require('level')
+var db = level(__dirname + '/../data/dbprk01.db')
 
 db.put('name', 'Teega', function (err) {
   db.batch([  

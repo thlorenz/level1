@@ -4,8 +4,8 @@ function inspect(obj, depth) {
   console.log(require('util').inspect(obj, false, depth || 5, true));
 }
 
-var levelup = require('levelup')
-var db = levelup(__dirname + '/../data/keys01.db', { valueEncoding: 'json' }, function () {
+var level = require('level')
+var db = level(__dirname + '/../data/keys01.db', { valueEncoding: 'json' }, function () {
 
   var b = db.batch();
   for (var i = 0; i < 10; i++) {
