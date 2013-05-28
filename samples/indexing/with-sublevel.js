@@ -12,13 +12,13 @@ var path        =  require('path')
 
 
 var level      =  require('level')
-  , Sublevel   =  require('level-sublevel')
-  , dblocation =  path.join(__dirname, '../..', 'data/index-keywords-and-add-values-sublevel.db')
+  , sublevel   =  require('level-sublevel')
+  , dblocation =  path.join(__dirname, '../..', 'data/sublevel.db')
 
 level.destroy(dblocation, function () {  
   level(dblocation, { valueEncoding: 'utf8' }, function (err, db) {
     if (err) return console.error(err);
-    addData(new Sublevel(db))
+    addData(sublevel(db))
   }) 
 })
 
