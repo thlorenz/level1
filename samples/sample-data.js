@@ -1,4 +1,5 @@
 'use strict';
+var xtend = require('xtend')
 
 exports.vehicles = {
     car         :  [ 'drive', 'fast', 'dangerous', 'roof', 'engine' ]
@@ -50,3 +51,13 @@ exports.vehicleData = {
       , url: 'http://en.wikipedia.org/wiki/Mountaineering'
     }
 }
+
+exports.keyedVehicleData = Object.keys(exports.vehicles)
+  .map(function (k) {
+    var data = exports.vehicleData[k]
+      , keywords = exports.vehicles[k]
+    return { 
+        key: k
+      , value: { description: data.description, url: data.url, keywords: keywords } 
+    }
+  })
