@@ -1,15 +1,15 @@
 'use strict';
 var path     =  require('path')
-  , type    =  require('../lib/type')
+  , type     =  require('../lib/type')
   , printKey =  require('../lib/print-key')
-  , index    =  require('../lib/index-by-values')
+  , key      =  require('../lib/key-by-values')
   , vehicles =  require('./sample-data').vehicles
 
 var level = require('level')
   , dblocation = path.join(__dirname, '..', 'data/index-keywords.db');
 
 var db = level(dblocation, { valueEncoding: 'utf8' }, function () {
-  var indexes = index(vehicles);
+  var indexes = key(vehicles);
   db.batch(
       type.del(indexes).concat(type.put(indexes))
     , function () {

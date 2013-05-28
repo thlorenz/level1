@@ -1,10 +1,10 @@
 'use strict';
 var path        =  require('path')
   , type        =  require('../lib/type')
-  , inspect        =  require('../lib/inspect')
+  , inspect     =  require('../lib/inspect')
   , printKey    =  require('../lib/print-key')
-  , indexByVals =  require('../lib/index-by-values')
-  , indexByVal  =  require('../lib/index-by-value')
+  , keyByVals =  require('../lib/key-by-values')
+  , keyByVal  =  require('../lib/key-by-value')
   , vehicles    =  require('./sample-data').vehicles
   , vehicleData =  require('./sample-data').vehicleData
 
@@ -19,8 +19,8 @@ level.destroy(dblocation, function () {
 function addData(err, db) {
   if (err) return console.error(err);
 
-  var indexes = indexByVals(vehicles, 'index_keyword')
-    , data = indexByVal(vehicleData, 'data')
+  var indexes = keyByVals(vehicles, 'index_keyword')
+    , data = keyByVal(vehicleData, 'data')
 
   db.batch(
       type.put(indexes).concat(type.put(data))

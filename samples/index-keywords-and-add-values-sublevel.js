@@ -5,8 +5,8 @@ var path        =  require('path')
   , dump        =  require('../lib/dump')
   , inspect     =  require('../lib/inspect')
   , printKey    =  require('../lib/print-key')
-  , indexByVals =  require('../lib/index-by-values')
-  , indexByVal  =  require('../lib/index-by-value')
+  , keyByVals   =  require('../lib/key-by-values')
+  , keyByVal    =  require('../lib/key-by-value')
   , vehicles    =  require('./sample-data').vehicles
   , vehicleData =  require('./sample-data').vehicleData
 
@@ -26,20 +26,16 @@ function addData(db) {
   var sub         =  db.sublevel('__main__')
     , keywordIdx  =  db.sublevel('index_keyword')
     , dataColl    =  db.sublevel('data')
-    , keywords    =  indexByVals(vehicles)
-    , data        =  indexByVal(vehicleData)
-    , putKeywords =  type.put(keywords)
-    , putData     =  type.put(data)
+    , keywords    =  keyByVals(vehicles)
+    , data        =  keyByVal(vehicleData)
 
-    , bykeyword =  putKeywords.map(function (x) {
+    , bykeyword =  type.put(keywords).map(function (x) {
         return extend(x, { prefix: keywordIdx }) 
       })
 
-    , values = putData.map(function (x) {
+    , values = type.put(data).map(function (x) {
         return extend(x, { prefix: dataColl })
       })
-    ;
-
   
   // need some sublevel here insert with my prefixes being respected
   // i.e. just db.batch(batch(bykeyword.concat(values) doesn't work and
