@@ -1,16 +1,16 @@
 'use strict';
 var path        =  require('path')
-  , type        =  require('../lib/type')
-  , inspect     =  require('../lib/inspect')
-  , printKey    =  require('../lib/print-key')
-  , keyByVals =  require('../lib/key-by-values')
-  , keyByVal  =  require('../lib/key-by-value')
-  , vehicles    =  require('./sample-data').vehicles
-  , vehicleData =  require('./sample-data').vehicleData
+  , type        =  require('../../lib/type')
+  , inspect     =  require('../../lib/inspect')
+  , printKey    =  require('../../lib/print-key')
+  , keyByVals   =  require('../../lib/key-by-values')
+  , keyByVal    =  require('../../lib/key-by-value')
+  , vehicles    =  require('../sample-data').vehicles
+  , vehicleData =  require('../sample-data').vehicleData
 
 
 var level = require('level')
-  , dblocation = path.join(__dirname, '..', 'data/index-keywords-and-add-values.db');
+  , dblocation = path.join(__dirname, '../..', 'data/index-keywords-and-add-values.db');
 
 level.destroy(dblocation, function () {  
   level(dblocation, { valueEncoding: 'utf8' }, addData) 

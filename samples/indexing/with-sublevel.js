@@ -1,19 +1,19 @@
 'use strict';
 var path        =  require('path')
   , extend      =  require('xtend')
-  , type        =  require('../lib/type')
-  , dump        =  require('../lib/dump')
-  , inspect     =  require('../lib/inspect')
-  , printKey    =  require('../lib/print-key')
-  , keyByVals   =  require('../lib/key-by-values')
-  , keyByVal    =  require('../lib/key-by-value')
-  , vehicles    =  require('./sample-data').vehicles
-  , vehicleData =  require('./sample-data').vehicleData
+  , type        =  require('../../lib/type')
+  , dump        =  require('../../lib/dump')
+  , inspect     =  require('../../lib/inspect')
+  , printKey    =  require('../../lib/print-key')
+  , keyByVals   =  require('../../lib/key-by-values')
+  , keyByVal    =  require('../../lib/key-by-value')
+  , vehicles    =  require('../sample-data').vehicles
+  , vehicleData =  require('../sample-data').vehicleData
 
 
 var level      =  require('level')
   , Sublevel   =  require('level-sublevel')
-  , dblocation =  path.join(__dirname, '..', 'data/index-keywords-and-add-values-sublevel.db')
+  , dblocation =  path.join(__dirname, '../..', 'data/index-keywords-and-add-values-sublevel.db')
 
 level.destroy(dblocation, function () {  
   level(dblocation, { valueEncoding: 'utf8' }, function (err, db) {
@@ -37,7 +37,7 @@ function addData(db) {
         return extend(x, { prefix: dataColl })
       })
   
-  // need some sublevel here insert with my prefixes being respected
+  // need some sublevel here when I insert with prefixes so they are being respected
   // i.e. just db.batch(batch(bykeyword.concat(values) doesn't work and
   //           bykeyword.batch(bykeyword.concat(values) ... is odd
   //      so   using a dummy sub is best option?
