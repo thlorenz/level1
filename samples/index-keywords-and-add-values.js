@@ -12,25 +12,33 @@ var path        =  require('path')
 var level = require('level')
   , dblocation = path.join(__dirname, '..', 'data/index-keywords-and-add-values.db');
 
-var db = level(dblocation, { valueEncoding: 'utf8' }, function () {
+level.destroy(dblocation, function () {  
+  level(dblocation, { valueEncoding: 'utf8' }, addData) 
+})
+
+function addData(err, db) {
+  if (err) return console.error(err);
+
   var indexes = indexByVals(vehicles, 'index_keyword')
     , data = indexByVal(vehicleData, 'data')
-    , matches = []
 
   db.batch(
       type.put(indexes).concat(type.put(data))
-    , function () {
-        db.createReadStream({ 
-            keys   :  true
-          , values :  true
-          , start  :  'index_keyword\x00slow'
-          , end    :  'index_keyword\x00slow\xff'
-        })
-        .on('data', function (match) { matches.push(match) } )
-        .on('close', printMatch.bind(null, db, matches))
-    }
-  )
-})
+    , queryData.bind(null, db))
+}
+
+function queryData(db) {
+  var matches = []
+
+  db.createReadStream({ 
+      keys   :  true
+    , values :  true
+    , start  :  'index_keyword\x00slow'
+    , end    :  'index_keyword\x00slow\xff'
+  })
+  .on('data', function (match) { matches.push(match) } )
+  .on('close', printMatch.bind(null, db, matches))
+}
 
 function printMatch (db, matches) {
   matches.forEach(function (m) {
