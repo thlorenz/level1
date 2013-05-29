@@ -58,6 +58,6 @@ exports.keyedVehicleData = Object.keys(exports.vehicles)
       , keywords = exports.vehicles[k]
     return { 
         key: k
-      , value: JSON.stringify({ description: data.description, url: data.url, keywords: keywords })
+      , value: JSON.stringify({ description: data.description, url: data.url, keywords: keywords, key: k })
     }
   })
