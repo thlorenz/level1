@@ -23,8 +23,7 @@ level.destroy(dblocation, function () {
 })
 
 function addData(db) {
-  var sub         =  db.sublevel('__main__')
-    , keywordIdx  =  db.sublevel('index_keyword')
+   var keywordIdx  =  db.sublevel('index_keyword')
     , dataColl    =  db.sublevel('data')
     , keywords    =  keyByVals(vehicles)
     , data        =  keyByVal(vehicleData)
@@ -37,11 +36,7 @@ function addData(db) {
         return extend(x, { prefix: dataColl })
       })
   
-  // need some sublevel here when I insert with prefixes so they are being respected
-  // i.e. just db.batch(batch(bykeyword.concat(values) doesn't work and
-  //           bykeyword.batch(bykeyword.concat(values) ... is odd
-  //      so   using a dummy sub is best option?
-  sub.batch(
+  db.batch(
       bykeyword.concat(values) 
     , queryData.bind(null, keywordIdx, dataColl)
   )

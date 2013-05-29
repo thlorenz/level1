@@ -13,8 +13,8 @@
   "homepage": "https://github.com/thlorenz/level1",
   "dependencies": {
     "level": "~0.9.0",
-    "level-sublevel": "~4.6.4",
-    "xtend": "~2.0.4"
+    "xtend": "~2.0.4",
+    "level-sublevel": "~4.6.5"
   },
   "devDependencies": {},
   "keywords": [],
