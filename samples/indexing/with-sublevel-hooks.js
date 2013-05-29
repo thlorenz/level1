@@ -26,27 +26,35 @@ function addData(db) {
     , vehicles    =  db.sublevel('vehicles')
 
   vehicles.pre(function (val, add) {
+    JSON.parse(val.value)
+      .keywords
+      .forEach(function (w) {
+        add({ 
+            type   :  'put'
+          , key    :  w + '\x00' + val.key
+          , value  :  val.key
+          , prefix :  keywordIdx
+        })  
+    })
   })
   
   vehicles.batch(
     type.put(vehicleData)
-  , queryData.bind(null, vehicles)
+  , queryData.bind(null, keywordIdx, vehicles)
   )
 }
 
-function queryData(vehicles) {
-  dump.all(vehicles)
-  
+function queryData(keywordIdx, vehicles) {
   var matches = []
-
-  /*keywordIdx.createReadStream({ 
+  
+  keywordIdx.createReadStream({ 
       keys   :  true
     , values :  true
-    , start  :  'slow'
-    , end    :  'slow\xff'
+    , start  :  'roof'
+    , end    :  'roof\xff'
   })
   .on('data', function (match) { matches.push(match) } )
-  .on('close', printMatch.bind(null, dataColl, matches))*/
+  .on('close', printMatch.bind(null, vehicles, matches))
 }
 
 function printMatch (db, matches) {
@@ -54,7 +62,7 @@ function printMatch (db, matches) {
     db.get(m.value, function (err, res) {
       if (err) return console.error(err);
       console.log(m.value + ':');
-      inspect(res)
+      inspect(JSON.parse(res))
     });
   })
 }

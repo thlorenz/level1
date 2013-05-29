@@ -23,7 +23,7 @@ level.destroy(dblocation, function () {
 })
 
 function addData(db) {
-   var keywordIdx  =  db.sublevel('index_keyword')
+  var keywordIdx  =  db.sublevel('index_keyword')
     , dataColl    =  db.sublevel('data')
     , keywords    =  keyByVals(vehicles)
     , data        =  keyByVal(vehicleData)
