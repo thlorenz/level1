@@ -26,8 +26,9 @@ function addData(db) {
     , vehicles    =  db.sublevel('vehicles')
 
   vehicles.pre(function (val, add) {
+    inspect(val.keywords);
+
     JSON.parse(val.value)
-      .keywords
       .forEach(function (w) {
         add({ 
             type   :  'put'
